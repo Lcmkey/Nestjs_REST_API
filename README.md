@@ -82,7 +82,48 @@ $ nest genrate controller produts
 $ nest g co produts
 ```
 
-### Test
+# Graphql
+
+GraphQL is a powerful query language for APIs and a runtime for fulfilling those queries with your existing data. It's an elegant approach that solves many problems typically found with REST APIs. For background, we suggest reading this comparison between GraphQL and REST. GraphQL combined with TypeScript helps you develop better type safety with your GraphQL queries, giving you end-to-end typing.
+
+### Installation
+
+If you are using express HTTP engine, install the following packages:
+
+```
+$ npm i --save @nestjs/graphql apollo-server-express graphql
+```
+
+In case of fastify, you should install apollo-server-fastify instead.
+
+```
+$ npm i --save @nestjs/graphql apollo-server-fastify graphql
+```
+
+### Setup GraphQL
+
+To start a GraphQL API install the following packages into your Nest application.
+
+```
+$ npm i --save @nestjs/graphql graphql-tools graphql
+```
+
+### GraphQL Code First Approach
+
+A GraphQL schema contains many `types` and `Queries`. The schema grows in size and complexity for each new query, mutation and type. GraphQL `Code First` enables us to automatically generate a GraphQL schema using TypeScript and decorators. This helps us focus on writing .ts files and we don't need to write the GraphQL schema ourselves.
+
+`@nestjs/graphql` provides all decorators to generate our schema. Here are a few decorators and there usage:
+
+- `@ObjectType()` generate class as `Type`
+- `@Field()` generate a class property as a `Field`
+- `@InputType()` generate class as `Input`
+- `@Args generate` method params as `Arguments`
+- `@Query()` generate method as `Query`
+- `@Mutation()` generate method as `Mutation`
+- `@ResolveField` resolve relationship property
+
+
+# Test
 ```properties
 <!-- Create -->
 $ curl -X POST -H "Content-Type: application/json" -d '{"title": "hello", "price": 200}' localhost:3000/products
@@ -97,3 +138,6 @@ $ curl -X PUT -H "Content-Type: application/json" -d '{"title": "hello world"}' 
 <!-- Delete -->
 $ curl -X DELETE  localhost:4000/products/5fc145e5ec5c501dc050d055
 ```
+
+<!-- Reference -->
+[GraphQL Code-First Approach with NestJS 7]: https://notiz.dev/blog/graphql-code-first-with-nestjs-7#graphql-type

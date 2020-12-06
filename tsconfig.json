@@ -12,7 +12,11 @@
     "baseUrl": "./",
     "incremental": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@src*": ["src/*"],
+      "@user": ["src/user"]
+    }
   },
   "exclude": ["node_modules"]
 }

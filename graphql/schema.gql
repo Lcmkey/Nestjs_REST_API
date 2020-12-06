@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input ChangePasswordInput {
+  email: String!
+  password: String!
+  passwordCfm: String!
+}
+
+input CreateHobbyInput {
+  description: String!
+  name: String!
+}
+
+input CreateUserInput {
+  email: String!
+  hobbies: [String!] = []
+  password: String!
+  passwordCfm: String!
+  status: UserStatus = A
+  username: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+enum Dire {
+  ASC
+  DESC
+}
+
+input EmailInput {
+  eq: String
+}
+
+input FindUserInput {
+  email: EmailInput
+}
+
+input FindUsersInput {
+  email: EmailInput
+  hobbies: UserHobbiesInput
+  username: UserNameInput
+}
+
+type Hobby {
+  """Record Creation Date"""
+  createdAt: Date
+
+  """Hobby Description"""
+  description: String
+
+  """Record unique ID"""
+  id: ID!
+
+  """Hobby Name"""
+  name: String
+
+  """Record Last Updated Date"""
+  updatedAt: Date
+  users: [User!]
+}
+
+type Mutation {
+  changePassword(input: ChangePasswordInput!): User!
+  createHobby(input: CreateHobbyInput!): Hobby!
+  createUser(input: CreateUserInput!): User!
+  deleteHobby(id: String!): Hobby
+  updateUser(id: String!, input: UpdateUserInput!): User!
+}
+
+input PaginationInput {
+  limit: Int = 10
+  skip: Int = 0
+}
+
+type Query {
+  hobbies: [Hobby!]!
+  totalUsers(input: FindUsersInput): Float
+  user(input: FindUserInput!): User
+  users(input: FindUsersInput, pagination: PaginationInput, sort: UserSortingField): [User!]!
+}
+
+type Subscription {
+  userAdded: User
+}
+
+input UpdateUserInput {
+  email: String!
+  hobbies: [String!]!
+  status: UserStatus = A
+  username: String!
+}
+
+type User {
+  """Record Creation Date"""
+  createdAt(format: String): Date!
+
+  """Email Address"""
+  email: String!
+
+  """Virtual Type"""
+  hello: String!
+
+  """User Hobbies ID List"""
+  hobbies(populate: Boolean): [Hobby!]
+
+  """Record unique ID"""
+  id: ID!
+
+  """A: Active, S: Suspend"""
+  status: String!
+
+  """Record Last Updated Date"""
+  updatedAt(format: String): Date
+
+  """User Name"""
+  username: String!
+}
+
+enum UserFields {
+  createdAt
+  email
+  status
+  updatedAt
+  username
+}
+
+input UserHobbiesInput {
+  eq: String
+  in: [String!]
+}
+
+input UserNameInput {
+  eq: String
+}
+
+input UserSortingField {
+  dire: Dire = DESC
+  field: UserFields = createdAt
+}
+
+enum UserStatus {
+  A
+  S
+}
